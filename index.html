@@ -65,8 +65,8 @@ const waterGeometry = new THREE.PlaneGeometry(5000, 5000);
 
 // 水面オブジェクト
 const water = new Water(waterGeometry, {
-    color: 0x88ccff,          // 水の色
-    scale: 4,                 // 波の細かさ
+    color: 0x33aaff,          // 水の色
+    scale: 1,                 // 波の細かさ
     flowDirection: new THREE.Vector2(1, 1),
     textureWidth: 1024,
     textureHeight: 1024
@@ -138,4 +138,5 @@ scene.add(water);
   </script>
 </body>
 </html>
+
 
