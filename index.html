@@ -1,0 +1,44 @@
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/loaders/GLTFLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/webxr/VRButton.js"></script>
+
+<body style="margin:0; overflow:hidden;">
+<script>
+  const scene = new THREE.Scene();
+
+  // 水中っぽい背景色
+  scene.background = new THREE.Color(0x003f5c);
+
+  const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 100);
+  camera.position.set(0, 1.6, 0);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.xr.enabled = true;
+  document.body.appendChild(renderer.domElement);
+
+  // VRボタン
+  document.body.appendChild(VRButton.createButton(renderer));
+
+  // ライト
+  const light = new THREE.HemisphereLight(0x88ccff, 0x003f5c, 1.2);
+  scene.add(light);
+
+  // 魚モデル読み込み
+  const loader = new THREE.GLTFLoader();
+  loader.load("model.glb", (gltf) => {
+    const fish = gltf.scene;
+    fish.position.set(0, 1.5, -3);
+    fish.scale.set(0.5, 0.5, 0.5);
+    scene.add(fish);
+  });
+
+  // アニメーションループ
+  function animate() {
+    renderer.setAnimationLoop(() => {
+      renderer.render(scene, camera);
+    });
+  }
+  animate();
+</script>
+</body>
